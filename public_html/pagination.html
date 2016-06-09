@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="monApp">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>AngularJS v1</title>
+        <script src="JS/angular.js" type="text/javascript"></script>
+        <script>
+            var app = angular.module('monApp', []);
+
+            app.controller("menuController", ['$scope', '$http', function ($scope, $http) {
+
+                    $scope.taillePage = 3;
+                    $scope.page = 0;
+                    $scope.films = [    {titre: 'dracula', annee: 2000},
+                                        {titre: 'nosferatu', annee: 1930},
+                                        {titre: 'ave cesar', annee: 2016},
+                                        {titre: 'ave cesar', annee: 1955},
+                                        {titre: 'kung fu panda 2', annee: 2016},
+                                        {titre: 'madagascar', annee: 2005}
+                                    ];
+                }]);
+        </script>
+    </head>
+    <body ng-controller="menuController">
+            <input type="button" value="Prec" ng-click="page=page-1"/>
+        Page: {{ page }}
+        <input type="button" value="Suiv" ng-click="page=page+1"/>
+        Taille / page:
+        <select ng-model="taillePage">
+            <option>2</option>
+            <option>5</option>
+            <option>10</option>
+        </select>
+        Triés par:
+        <select ng-model="tri">
+            <option>titre</option>
+            <option>annee</option>
+        </select>
+        <div ng-repeat="film in films | orderBy:tri | limitTo:taillePage:page*taillePage">
+            {{ film.titre }} {{ film.annee }} 
+        </div>
+    </body>
+</html>

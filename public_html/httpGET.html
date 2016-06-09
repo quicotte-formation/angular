@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="monApp">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>AngularJS v1</title>
+        <script src="JS/angular.js" type="text/javascript"></script>
+        <script>
+            var app = angular.module('monApp', []);
+
+            app.controller("menuController", ['$scope', '$http', function ($scope, $http) {
+
+                    $scope.animaux = [];
+
+                    $scope.dateJour = new Date();
+
+                    $scope.ajouter = function(){
+                        $scope.animaux.push($scope.nouvelAnimal);
+                        $scope.nouvelAnimal = null;
+                    }
+
+                    $scope.clic = function(){
+                        $http({method: 'GET', url: 'JSON/animaux.json'}).then(function callbackOK(data){
+                            $scope.animaux.push( data.data );
+                        });
+                    };
+                    
+                    $scope.clic();
+                }]);
+        </script>
+    </head>
+    <body ng-controller="menuController">
+        
+        Nouveau nom: <input type="text" ng-model="nouvelAnimal.nom"/>
+        Nouvreau type: 
+        <select ng-model="nouvelAnimal.type">
+            <option value="CHIEN">CHIEN</option>
+            <option value="CHAT">CHAT</option>
+            <option value="CHEVRE">CHEVRE</option>
+        </select>
+        
+        <input type="button" value="Ajouter" ng-click="ajouter();"/>
+        <br/>
+        <table>
+            <tr ng-repeat="a in animaux | limitTo:4:2">
+                <td>{{ a.nom | uppercase }}</td>
+                <td>{{ a.type }}</td>
+            </tr>
+        </table>
+        <br>
+    </body>
+</html>
