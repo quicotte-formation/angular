@@ -25,5 +25,9 @@
         <div ng-repeat="film in films | limitTo:2">
             {{ film.titre }} {{ film.annee }} 
         </div>
+        <h1>Filtre filter</h1>
+        <div ng-repeat="film in films | filter:{titre:'ave', annee:2016}">
+            {{ film.titre }} {{ film.annee }} 
+        </div>
     </body>
 </html>
