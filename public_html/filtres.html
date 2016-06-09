@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="monApp">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>AngularJS v1</title>
+        <script src="JS/angular.js" type="text/javascript"></script>
+        <script>
+            var app = angular.module('monApp', []);
+
+            app.controller("menuController", ['$scope', '$http', function ($scope, $http) {
+
+                    $scope.films = [    {titre: 'dracula', annee: 2000},
+                                        {titre: 'nosferatu', annee: 1930},
+                                        {titre: 'ave cesar', annee: 2016},
+                                        {titre: 'ave cesar', annee: 1955}];
+                }]);
+        </script>
+    </head>
+    <body ng-controller="menuController">
+        <h1>Filtre orderBy</h1>
+        <div ng-repeat="film in films | orderBy:'titre':'annee'">
+            {{ film.titre | uppercase }} {{ film.annee }} 
+        </div>
+        <h1>Filtre limitTo</h1>
+        <div ng-repeat="film in films | limitTo:2">
+            {{ film.titre }} {{ film.annee }} 
+        </div>
+    </body>
+</html>
