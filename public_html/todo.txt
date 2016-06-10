@@ -1,5 +1,5 @@
-ng-switch 
-sg-if 
+ng-switch
+ng-if
 ng-class, ng-class-even / odd
 ng-hide / show
 
