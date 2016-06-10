@@ -18,20 +18,20 @@
                         $scope.nouvelAnimal = null;
                     }
 
-                    $scope.clic = function(){
+                    $scope.chargerJSON = function(){
                         $http({method: 'GET', url: 'JSON/animaux.json'}).then(function callbackOK(data){
-                            $scope.animaux.push( data.data );
+                            $scope.animaux = data.data;
                         });
                     };
                     
-                    $scope.clic();
+                    $scope.chargerJSON();
                 }]);
         </script>
     </head>
     <body ng-controller="menuController">
         
         Nouveau nom: <input type="text" ng-model="nouvelAnimal.nom"/>
-        Nouvreau type: 
+        Nouveau type: 
         <select ng-model="nouvelAnimal.type">
             <option value="CHIEN">CHIEN</option>
             <option value="CHAT">CHAT</option>
@@ -40,12 +40,21 @@
         
         <input type="button" value="Ajouter" ng-click="ajouter();"/>
         <br/>
+        <br>
+        Tableau des animaux:
         <table>
-            <tr ng-repeat="a in animaux | limitTo:4:2">
-                <td>{{ a.nom | uppercase }}</td>
+            <tr ng-repeat="a in animaux ">
+                <td>{{ a.nom }}</td>
                 <td>{{ a.type }}</td>
             </tr>
         </table>
+        <br/>
+        <br>
+        <div>
+            Version JSON : à copier dans JSON/animaux.json
+            <br>
+            {{ animaux }}
+        </div>
         <br>
     </body>
 </html>
