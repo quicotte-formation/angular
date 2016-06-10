@@ -1,0 +1,7 @@
+ng-switch 
+sg-if 
+ng-class, ng-class-even / odd
+ng-hide / show
+
+ng-select
+ng-submit
