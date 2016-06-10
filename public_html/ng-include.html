@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="monApp">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>AngularJS v1</title>
+        <script src="JS/angular.js" type="text/javascript"></script>
+        <script>
+            var app = angular.module('monApp', []);
+
+            app.controller("menuController", ['$scope', '$http', function ($scope, $http) {
+
+                    $scope.route_a_inclure = null;
+                }]);
+        </script>
+    </head>
+    <body ng-controller="menuController">
+        <div>
+            <input type="button" value="Charger route A" ng-click="route_a_inclure='ROUTES_BIDON/route_a.html'"/>
+            <input type="button" value="Charger route B" ng-click="route_a_inclure='ROUTES_BIDON/route_b.html'"/>
+        </div>
+        <div ng-include="route_a_inclure">*** Zone à charger en AJAX ***</div>
+    </body>
+</html>

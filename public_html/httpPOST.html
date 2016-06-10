@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="monApp">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>AngularJS v1</title>
+        <script src="JS/angular.js" type="text/javascript"></script>
+        <script>
+            var app = angular.module('monApp', []);
+
+            app.controller("menuController", ['$scope', '$http', function ($scope, $http) {
+
+                    $scope.animaux = [];
+
+                    $scope.dateJour = new Date();
+
+                    $scope.envoyerPOST = function () {
+                        $http({method: 'POST', url: '/route_bidon', data: {'animal': $scope.nouvelAnimal} }).then(function callbackOK(data) {
+                            $scope.animaux = data.data;
+                        });
+                    };
+                }]);
+        </script>
+    </head>
+    <body ng-controller="menuController">
+
+        <h1>Envoi nouvel animal avec POST</h1>
+        <form>
+        Nouveau nom: <input type="text" ng-model="nouvelAnimal.nom"/>
+        Nouveau type: 
+            <select ng-model="nouvelAnimal.type">
+                <option value="CHIEN">CHIEN</option>
+                <option value="CHAT">CHAT</option>
+                <option value="CHEVRE">CHEVRE</option>
+            </select>
+
+            <input type="button" value="Ajouter" ng-click="envoyerPOST();"/>
+        </form>
+    </body>
+</html>
