@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="monApp">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>AngularJS v1</title>
+        <script src="JS/angular.js" type="text/javascript"></script>
+        <script>
+            var app = angular.module('monApp', []);
+
+            app.controller("menuController", ['$scope', '$http', function ($scope, $http) {
+
+                }]);
+        </script>
+    </head>
+    <body ng-controller="menuController">
+        Couleur: 
+        <select ng-model="couleur">
+            <option>ROUGE</option>
+            <option>VERT</option>
+            <option>BLEU</option>
+        </select>
+        <br>
+        <br>
+        Resultat ng-switch: 
+        <span ng-switch="couleur">
+            <span ng-switch-when="ROUGE">1</span>
+            <span ng-switch-when="VERT">2</span>
+            <span ng-switch-when="BLEU">3</span>
+        </span>
+    </body>
+</html>

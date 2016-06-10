@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="monApp">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>AngularJS v1</title>
+        <link href="CSS/monCSS.css" rel="stylesheet" type="text/css"/>
+        <script src="JS/angular.js" type="text/javascript"></script>
+        <script>
+            var app = angular.module('monApp', []);
+
+            app.controller("menuController", ['$scope', '$http', function ($scope, $http) {
+
+                    //$scope.film = {titre: 'VOTRE TITRE ICI', annee: 2016};
+                    $scope.zone_visible = true;
+                }]);
+        </script>
+    </head>
+    <body ng-controller="menuController">
+        <input type="button" value="Afficher" ng-click="zone_visible=true" />
+        <input type="button" value="Masquer" ng-click="zone_visible=false" />
+        <div ng-show="zone_visible">
+            CONTENU
+        </div>
+    </body>
+</html>

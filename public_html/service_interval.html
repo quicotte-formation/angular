@@ -9,12 +9,20 @@
 
             app.controller("menuController", ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
 
-                    $interval( function(){
-                        alert('coucou');
-                    }, 1000 );
+                    $scope.timer = 0;
+                    $scope.marche = false;
+
+                    $interval(function () {
+
+                        if( $scope.marche==true )
+                            $scope.timer = $scope.timer + 1;
+
+                    }, 1000);
                 }]);
         </script>
     </head>
     <body ng-controller="menuController">
+        Timer: {{ timer }}
+        <input type="button" value="Marche / Arret" ng-click="marche = ! marche"/>
     </body>
 </html>
