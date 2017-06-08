@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="monApp">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>AngularJS v1</title>
+        <script src="JS/angular.js" type="text/javascript"></script>
+    </head>
+    <body ng-controller="menuController">
+
+        <div>
+            <h1>Nouveau film</h1>
+            <fieldset>
+                <label>Titre</label>
+                <input ng-model="titre"/>
+                <label>Année</label>
+                <input type="number" ng-model="annee"/>
+                <input type="button" value="Ajouter" ng-click="ajouter()"/>
+            </fieldset>
+        </div>
+        {{ titre }} {{ annee }}
+        <div>
+            <h1>Listes des films</h1>
+            Taille page:
+            <select ng-model="taillePage">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+            <table>
+                <tr ng-repeat="f in films|limitTo:taillePage">
+                    <td>
+                        {{ f.titre}}
+                    </td>
+                    <td>
+                        {{ f.annee}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <script type="text/javascript">
+                    var app = angular.module('monApp', []);
+
+                    app.controller("menuController", ['$scope', '$http', function ($scope, $http) {
+
+                            $scope.taillePage = 5;
+
+                            $scope.titre = "VOTRE TITRE";
+                            $scope.annee = 2017;
+
+                            $scope.films = [
+                                {titre: "Dracula",
+                                    annee: 2017},
+                                {titre: "Frankenstein",
+                                    annee: 1902}
+                            ];
+                            
+                            $scope.ajouter = function(){
+                                
+                                var objetFilm = {
+                                    titre: $scope.titre,
+                                    annee: $scope.annee
+                                };
+                                
+                                $scope.films.push( objetFilm );
+                            }
+
+                        }]);
+        </script>
+    </body>
+</html>
