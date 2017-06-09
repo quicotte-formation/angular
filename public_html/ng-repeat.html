@@ -17,9 +17,10 @@
                 <input type="button" value="Ajouter" ng-click="ajouter()"/>
             </fieldset>
         </div>
-        {{ titre }} {{ annee }}
+        {{ titre}} {{ annee}}
         <div>
             <h1>Listes des films</h1>
+            <br>
             Taille page:
             <select ng-model="taillePage">
                 <option value="5">5</option>
@@ -27,27 +28,38 @@
                 <option value="15">15</option>
                 <option value="20">20</option>
             </select>
+            <input type="button" value=" < " ng-click="changerPage(page - 1)"/>
+            Page {{ page + 1}}
+            <input type="button" value=" > " ng-click="changerPage(page + 1)"/>
             <table>
-                <tr ng-repeat="f in films|limitTo:taillePage">
-                    <td>
-                        {{ f.titre}}
-                    </td>
-                    <td>
-                        {{ f.annee}}
-                    </td>
-                </tr>
+                <thead>
+                <th ng-click="trierPar='titre'">TITRE</th>
+                <th ng-click="trierPar='annee'">ANNEE</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="f in films | orderBy:trierPar | limitTo:taillePage:page*taillePage">
+                        <td>
+                            {{ f.titre}}
+                        </td>
+                        <td>
+                            {{ f.annee}}
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
-
         <script type="text/javascript">
                     var app = angular.module('monApp', []);
 
                     app.controller("menuController", ['$scope', '$http', function ($scope, $http) {
 
-                            $scope.taillePage = 5;
+                            $scope.trierPar = 'annee';
+                            $scope.page = 0;
+                            $scope.taillePage = "5";
 
                             $scope.titre = "VOTRE TITRE";
                             $scope.annee = 2017;
+
 
                             $scope.films = [
                                 {titre: "Dracula",
@@ -55,15 +67,26 @@
                                 {titre: "Frankenstein",
                                     annee: 1902}
                             ];
-                            
-                            $scope.ajouter = function(){
-                                
+
+                            $scope.changerPage = function (nouveauNumPage) {
+
+                                if (nouveauNumPage < 0)
+                                    return;
+
+                                if (nouveauNumPage * $scope.taillePage > $scope.films.length)
+                                    return;
+
+                                $scope.page = nouveauNumPage;
+                            }
+
+                            $scope.ajouter = function () {
+
                                 var objetFilm = {
                                     titre: $scope.titre,
                                     annee: $scope.annee
                                 };
-                                
-                                $scope.films.push( objetFilm );
+
+                                $scope.films.push(objetFilm);
                             }
 
                         }]);
